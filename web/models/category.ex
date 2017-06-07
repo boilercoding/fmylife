@@ -3,6 +3,7 @@ defmodule Fmylife.Category do
 
   schema "categories" do
     field :name, :string
+    has_many :stories, Fmylife.Story
 
     timestamps()
   end

@@ -3,6 +3,9 @@ defmodule Fmylife.Story do
 
   schema "stories" do
     field :body, :string
+    belongs_to :users, Fmylife.Story
+    belongs_to :categories, Fmylife.Story
+    has_many :comments, Fmylife.Story
 
     timestamps()
   end

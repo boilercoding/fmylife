@@ -4,6 +4,7 @@ defmodule Fmylife.Comment do
   schema "comments" do
     field :body, :string
     belongs_to :story, Fmylife.Story
+    belongs_to :user, Fmylife.User
 
     timestamps()
   end
