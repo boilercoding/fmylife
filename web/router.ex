@@ -37,10 +37,10 @@ defmodule Fmylife.Router do
   scope "/", Fmylife do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", StoryController, :index
   end
 
-  scope "/", MyProject do
+  scope "/", Fmylife do
     pipe_through :protected
 
     # add protected resources below
