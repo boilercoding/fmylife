@@ -9,3 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+Fmylife.Repo.delete_all Fmylife.User
+
+Fmylife.User.changeset(%Fmylife.User{}, %{name: "Test User", email: "testuser@example.com", password: "secret", password_confirmation: "secret"})
+|> Fmylife.Repo.insert!
