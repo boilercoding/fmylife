@@ -15,4 +15,17 @@ defmodule Fmylife.StoryController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  def create(conn, %{"story" => story_params}) do
+    changeset = Story.changeset(%Story{}, story_params)
+
+    case Repo.insert(changeset) do
+      {:ok, _story} ->
+        conn
+        |> put_flash(:success, "Story created successfully.")
+        |> redirect(to: story_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "new.html", changeset: changeset)
+    end
+  end
+
 end
