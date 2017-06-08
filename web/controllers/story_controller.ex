@@ -7,7 +7,9 @@ defmodule Fmylife.StoryController do
   alias Fmylife.Category
 
   def index(conn, _params) do
-    render conn, "index.html"
+    categories = Repo.all(Category)
+    stories = Repo.all(Story)
+    render(conn, "index.html", stories: stories, categories: categories)
   end
 
   def new(conn, _params) do
