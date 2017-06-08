@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="form-area">
+      <h2>Submit your FML</h2>
+      <p>Have you just experienced an FML moment? Feel like sharing it with the other FML users? Your instinct was right, because it’s good to laugh life off. Follow the instructions below, and if your story gets through the moderation process, it'll published in the next 24 hours.</p>
+      <%= render "form.html", changeset: @changeset,
+                        action: story_path(@conn, :create) %>
+    </div>
+  </div>
+</div>

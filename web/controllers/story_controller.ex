@@ -10,4 +10,9 @@ defmodule Fmylife.StoryController do
     render conn, "index.html"
   end
 
+  def new(conn, _params) do
+    changeset = Story.changeset(%Story{})
+    render(conn, "new.html", changeset: changeset)
+  end
+
 end

@@ -37,6 +37,7 @@ defmodule Fmylife.Router do
   scope "/", Fmylife do
     pipe_through :browser # Use the default browser stack
 
+    resources "/stories", StoryController
     get "/", StoryController, :index
   end
 

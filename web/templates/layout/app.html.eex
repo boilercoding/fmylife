@@ -39,7 +39,7 @@
               </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="">Submit your FML</a></li>
+              <li><%= link "Submit your FML", to: story_path(@conn, :new) %> </li>
               <li><a href="">Sign in</a></li>
               <li><a href="">Sign up</a></li>
             </ul>
