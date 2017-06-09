@@ -1,15 +1,12 @@
 defmodule Fmylife.StoryController do
   use Fmylife.Web, :controller
 
-  alias Fmylife.User
-  alias Fmylife.Story
-  alias Fmylife.Comment
-  alias Fmylife.Category
+  alias Fmylife.{User, Story, Comment, Category}
 
   def index(conn, _params) do
     categories = Repo.all(Category)
-    stories = Repo.all(Story)
-    render(conn, "index.html", stories: stories, categories: categories)
+    users = User |> Repo.all() |> Repo.preload([:stories])
+    render(conn, "index.html", users: users, categories: categories)
   end
 
   def new(conn, _params) do
@@ -18,7 +15,8 @@ defmodule Fmylife.StoryController do
   end
 
   def create(conn, %{"story" => story_params}) do
-    changeset = Story.changeset(%Story{}, story_params)
+    current_user = Coherence.current_user(conn)
+    changeset = Story.changeset(%Story{user_id: current_user.id}, story_params)
 
     case Repo.insert(changeset) do
       {:ok, story} ->

@@ -1,13 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <%= for story <- @stories do %>
-        <div class="well">
-          <%= story.body %>
-          <br>
-          <br>
-
-        </div><!-- /.well -->
+      <%= for user <- @users do %>
+        <%= for story <- user.stories do %>
+          <div class="well">
+            <%= story.body %>
+            <br>
+            <br>
+            <a href="#" class="btn btn-info btn-xs">Your life sucks</a><span class="text-warning"> (20)</span>
+            <a href="#" class="btn btn-primary btn-xs">You deserved it</a><span class="text-warning"> (40)</span>
+            <a href="#" class="btn btn-link btn-xs">Comments</a><small><em> (200)</em></small>
+            <div class="text-muted pull-right"><small>Created by: <%= user.name%> on <%= "#{story.inserted_at.month}-#{story.inserted_at.day}-#{story.inserted_at.year}"<> " " <> "#{story.inserted_at.hour}:#{story.inserted_at.minute}" %></small></div><%= Timex.now %>
+          </div><!-- /.well -->
+        <% end %>
       <% end %>
       <ul class="pagination pull-right">
         <li class="disabled"><a href=""><<</a></li>

@@ -6,7 +6,7 @@ defmodule Fmylife.User do
     field :name, :string
     field :email, :string
     coherence_schema
-    has_many :comments, Fmylife.Story
+    has_many :comments, Fmylife.Comment
     has_many :stories, Fmylife.Story
 
     timestamps
