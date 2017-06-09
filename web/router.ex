@@ -35,17 +35,18 @@ defmodule Fmylife.Router do
   end
 
   scope "/", Fmylife do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :protected
 
-    resources "/stories", StoryController
-    get "/", StoryController, :index
+    resources "/stories", StoryController, except: [:index, :show]
   end
 
   scope "/", Fmylife do
-    pipe_through :protected
+    pipe_through :browser # Use the default browser stack
 
-    # add protected resources below
+    get "/", StoryController, :index
+    resources "/stories", StoryController, only: [:show]
   end
+
 
   # Other scopes may use custom stacks.
   # scope "/api", Fmylife do
