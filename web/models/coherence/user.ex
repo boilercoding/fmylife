@@ -8,6 +8,7 @@ defmodule Fmylife.User do
     coherence_schema
     has_many :comments, Fmylife.Comment
     has_many :stories, Fmylife.Story
+    has_many :likes, Fmylife.Like
 
     timestamps
   end

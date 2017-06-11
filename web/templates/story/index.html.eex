@@ -7,8 +7,8 @@
             <%= story.body %>
             <br>
             <br>
-            <a href="#" class="btn btn-info btn-xs">Your life sucks</a><span class="text-warning"> (20)</span>
-            <a href="#" class="btn btn-primary btn-xs">You deserved it</a><span class="text-warning"> (40)</span>
+            <%= link "Your life sucks", to: story_like_path(@conn, :like, story.id), method: "put", class: "btn btn-info btn-xs" %><span class="text-warning"> (<%= Fmylife.Like.total_likes(user.id, story.id) %>)</span>
+            <%= link "You deserved it", to: story_like_path(@conn, :dislike, story.id), method: "put", class: "btn btn-primary btn-xs" %><span class="text-warning"> (<%= Fmylife.Like.total_dislikes(user.id, story.id) %>)</span>
             <a href="#" class="btn btn-link btn-xs">Comments</a><small><em> (200)</em></small>
             <div class="text-muted pull-right"><small>Created by: <%= user.name%>&nbsp;<%= time_ago_in_words(story.inserted_at) %></small></div>
           </div><!-- /.well -->

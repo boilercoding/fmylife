@@ -6,6 +6,7 @@ defmodule Fmylife.Story do
     belongs_to :user, Fmylife.User
     belongs_to :category, Fmylife.Category
     has_many :comments, Fmylife.Comment
+    has_many :likes, Fmylife.Like
 
     timestamps()
   end

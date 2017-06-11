@@ -37,7 +37,10 @@ defmodule Fmylife.Router do
   scope "/", Fmylife do
     pipe_through :protected
 
-    resources "/stories", StoryController, except: [:index, :show]
+    resources "/stories", StoryController, except: [:index, :show] do
+      put "/like", LikeController, :like
+      put "/dislike", LikeController, :dislike 
+    end
   end
 
   scope "/", Fmylife do
