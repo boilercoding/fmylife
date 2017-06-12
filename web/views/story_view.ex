@@ -1,6 +1,7 @@
 defmodule Fmylife.StoryView do
   use Fmylife.Web, :view
-  
+  alias Fmylife.Like
+
   def time_ago_in_words(time) do
     ts = NaiveDateTime.to_erl(time) |> :calendar.datetime_to_gregorian_seconds
     diff = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time) - ts
@@ -23,4 +24,28 @@ defmodule Fmylife.StoryView do
     do: "just now"
   defp rel_from_now({day, {_, _, _}}),
     do: "#{day} days ago"
+
+  def liked?(conn, story_id) do
+    current_user = Coherence.current_user(conn)
+    case conn.assigns.current_user do
+      nil -> "btn btn-info btn-xs"
+      _ ->
+        case Like.liked?(current_user.id, story_id) do
+          nil -> "btn btn-info btn-xs"
+          _ -> "btn btn-info btn-xs active"
+        end
+    end
+  end
+
+  def disliked?(conn, story_id) do
+    current_user = Coherence.current_user(conn)
+    case conn.assigns.current_user do
+      nil -> "btn btn-primary btn-xs"
+      _ ->
+        case Like.disliked?(current_user.id, story_id) do
+          nil -> "btn btn-primary btn-xs"
+          _ -> "btn btn-primary btn-xs active"
+        end
+    end
+  end
 end
