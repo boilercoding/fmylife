@@ -38,6 +38,7 @@ defmodule Coherence.Redirects do
 
   """
   use Redirects
+  use Fmylife.Web, :controller
   # Uncomment the import below if adding overrides
   # import Fmylife.Router.Helpers
 
