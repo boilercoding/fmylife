@@ -13,15 +13,15 @@ defmodule Fmylife.LikeController do
         case get_like do
           nil ->
             Repo.insert(like)
-            conn |> redirect(to: story_path(conn, :show, story_id))
+            conn |> redirect(to: get_session(conn, :back_path))
           _ ->
             Repo.delete!(get_like)
-            conn |> redirect(to: story_path(conn, :show, story_id))
+            conn |> redirect(to: get_session(conn, :back_path))
         end
       _ ->
         get_dislike = Ecto.Changeset.change(get_dislike, dislike: false)
         Repo.update!(get_dislike)
-        conn |> redirect(to: story_path(conn, :show, story_id))
+        conn |> redirect(to: get_session(conn, :back_path))
     end
   end
 
@@ -36,15 +36,15 @@ defmodule Fmylife.LikeController do
         case get_dislike do
           nil ->
             Repo.insert(dislike)
-            conn |> redirect(to: story_path(conn, :show, story_id))
+            conn |> redirect(to: get_session(conn, :back_path))
           _ ->
             Repo.delete!(get_dislike)
-            conn |> redirect(to: story_path(conn, :show, story_id))
+            conn |> redirect(to: get_session(conn, :back_path))
         end
       _ ->
         get_like = Ecto.Changeset.change(get_like, dislike: true)
         Repo.update!(get_like)
-        conn |> redirect(to: story_path(conn, :show, story_id))
+        conn |> redirect(to: get_session(conn, :back_path))
     end
   end
 end

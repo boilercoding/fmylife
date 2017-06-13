@@ -4,6 +4,7 @@ defmodule Fmylife.StoryController do
   alias Fmylife.{User, Story, Comment, Category}
 
   def index(conn, _params) do
+    back = put_session(conn, :back_path, conn.request_path)
     categories = Repo.all(Category)
     users = User |> Repo.all() |> Repo.preload([:stories])
     render(conn, "index.html", users: users, categories: categories)
