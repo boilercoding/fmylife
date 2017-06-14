@@ -30,6 +30,17 @@ Fmylife.Category.changeset(%Fmylife.Category{}, %{name: "Transportation"})
 |> Fmylife.Repo.insert!
 
 Fmylife.Repo.delete_all Fmylife.User
+(1..10) |> Enum.each(fn n ->
+  Fmylife.User.changeset(%Fmylife.User{}, %{
+                        name: "Test User#{n}",
+                        email: "testuser#{n}@example.com",
+                        password: "secret",
+                        password_confirmation: "secret"})
+  |> Fmylife.Repo.insert!
+end)
 
-Fmylife.User.changeset(%Fmylife.User{}, %{name: "Test User", email: "testuser@example.com", password: "secret", password_confirmation: "secret"})
-|> Fmylife.Repo.insert!
+Fmylife.Repo.delete_all Fmylife.Story
+(1..60) |> Enum.each(fn n ->
+  Fmylife.Story.changeset(%Fmylife.Story{user_id: :rand.uniform(10)}, %{body: "The quick brown fox jumps over the lazy dog. #{n}"})
+  |> Fmylife.Repo.insert!
+end)

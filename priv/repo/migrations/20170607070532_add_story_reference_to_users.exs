@@ -3,7 +3,7 @@ defmodule Fmylife.Repo.Migrations.AddStoryReferenceToUsers do
 
   def change do
     alter table(:stories) do
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
     end
     create index(:stories, [:user_id])
   end

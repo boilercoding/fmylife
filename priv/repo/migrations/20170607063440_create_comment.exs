@@ -4,7 +4,7 @@ defmodule Fmylife.Repo.Migrations.CreateComment do
   def change do
     create table(:comments) do
       add :body, :text
-      add :story_id, references(:stories, on_delete: :nothing)
+      add :story_id, references(:stories, on_delete: :delete_all)
 
       timestamps()
     end
