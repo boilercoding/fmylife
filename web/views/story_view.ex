@@ -1,6 +1,7 @@
 defmodule Fmylife.StoryView do
   use Fmylife.Web, :view
   alias Fmylife.Like
+  import Kerosene.HTML
 
   def time_ago_in_words(time) do
     ts = NaiveDateTime.to_erl(time) |> :calendar.datetime_to_gregorian_seconds

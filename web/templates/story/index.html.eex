@@ -1,28 +1,25 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <%= for user <- @users do %>
-        <%= for story <- user.stories do %>
-          <div class="well">
-            <%= story.body %>
-            <br>
-            <br>
-            <%= link "Your life sucks", to: story_like_path(@conn, :like, story.id), method: "put", class: liked?(@conn, story.id) %><span class="text-warning"> (<%= Fmylife.Like.total_likes(user.id, story.id) %>)</span>
-            <%= link "You deserved it", to: story_like_path(@conn, :dislike, story.id), method: "put", class: disliked?(@conn, story.id) %><span class="text-warning"> (<%= Fmylife.Like.total_dislikes(user.id, story.id) %>)</span>
-            <a href="#" class="btn btn-link btn-xs">Comments</a><small><em> (200)</em></small>
-            <div class="text-muted pull-right"><small>Created by: <%= user.name%>&nbsp;<%= time_ago_in_words(story.inserted_at) %></small></div>
-          </div><!-- /.well -->
-        <% end %>
+      <%= for story <- @stories do %>
+        <div class="well">
+          <%= story.body %>
+          <br>
+          <br>
+          <%= link "Your life sucks", to: story_like_path(@conn, :like, story.id), method: "put", class: liked?(@conn, story.id) %>
+          <span class="text-warning">
+            (<%= Fmylife.Like.total_likes(story.id) %>)
+          </span>
+          <%= link "You deserved it", to: story_like_path(@conn, :dislike, story.id), method: "put", class: disliked?(@conn, story.id) %>
+          <span class="text-warning">
+            (<%= Fmylife.Like.total_dislikes(story.id) %>)
+          </span>
+          <a href="#" class="btn btn-link btn-xs">Comments</a><small><em> (200)</em></small>
+          <div class="text-muted pull-right"><small>Created by: <%= story.user.name %>&nbsp;<%= time_ago_in_words(story.inserted_at) %></small></div>
+        </div><!-- /.well -->
       <% end %>
-      <ul class="pagination pull-right">
-        <li class="disabled"><a href=""><<</a></li>
-        <li class="active"><a href="">1</a></li>
-        <li><a href="">2</a></li>
-        <li><a href="">3</a></li>
-        <li><a href="">4</a></li>
-        <li><a href="">5</a></li>
-        <li><a href="">>></a></li>
-      </ul>
+
+      <%= paginate @conn, @kerosene, class: "pull-right" %>
     </div><!-- /.col-md-8 -->
     <div class="col-md-4 col-sm-12">
       <div class="panel panel-default">

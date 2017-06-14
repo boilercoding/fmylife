@@ -18,8 +18,7 @@ defmodule Fmylife.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Fmylife, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :coherence]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :coherence, :kerosene]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +37,8 @@ defmodule Fmylife.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:coherence, "~> 0.3"}]
+     {:coherence, "~> 0.3"},
+     {:kerosene, "~> 0.7.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

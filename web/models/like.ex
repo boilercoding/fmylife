@@ -9,12 +9,12 @@ defmodule Fmylife.Like do
     timestamps()
   end
 
-  def total_likes(user_id, story_id) do
-    total(user_id, story_id, false)
+  def total_likes(story_id) do
+    total(story_id, false)
   end
 
-  def total_dislikes(user_id, story_id) do
-    total(user_id, story_id, true)
+  def total_dislikes(story_id) do
+    total(story_id, true)
   end
 
   def liked?(user_id, story_id) do
@@ -35,11 +35,11 @@ defmodule Fmylife.Like do
   end
 
 
-  defp total(user_id, story_id, dislike) do
+  defp total(story_id, dislike) do
     hd Fmylife.Repo.all(
       from l in Fmylife.Like,
       select: count(l.id),
-      where: [user_id: ^user_id, story_id: ^story_id, dislike: ^dislike]
+      where: [story_id: ^story_id, dislike: ^dislike]
     )
   end
 
