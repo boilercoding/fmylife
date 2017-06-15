@@ -39,7 +39,7 @@ defmodule Fmylife.Router do
 
     resources "/stories", StoryController, except: [:index, :show] do
       put "/like", LikeController, :like
-      put "/dislike", LikeController, :dislike 
+      put "/dislike", LikeController, :dislike
     end
   end
 
@@ -47,6 +47,7 @@ defmodule Fmylife.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", StoryController, :index
+    get "/page", PageController, :index
     resources "/stories", StoryController, only: [:show]
   end
 
