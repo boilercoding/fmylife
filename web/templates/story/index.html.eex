@@ -15,7 +15,7 @@
                   <%= nil -> %>
                     <button data-story-id="<%= story.id %>"class="btn btn-info btn-xs" drab-click="like">Your life sucks</button>
                   <%= _ -> %>
-                    <button data-story-id="<%= story.id %>"class="btn btn-info btn-xs active" drab-click="unlike">Your life sucks</button>
+                    <button data-story-id="<%= story.id %>"class="btn btn-info btn-xs active" drab-click="like">Your life sucks</button>
                 <% end %>
             <% end %>
           </span>
@@ -31,7 +31,7 @@
                   <%= nil -> %>
                     <button data-story-id="<%= story.id %>"class="btn btn-primary btn-xs" drab-click="dislike">You deserved it</button>
                   <%= _ -> %>
-                    <button data-story-id="<%= story.id %>"class="btn btn-primary btn-xs active" drab-click="undislike">You deserved it</button>
+                    <button data-story-id="<%= story.id %>"class="btn btn-primary btn-xs active" drab-click="dislike">You deserved it</button>
                 <% end %>
             <% end %>
           </span>

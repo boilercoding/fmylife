@@ -5,19 +5,23 @@ defmodule Fmylife.StoryCommander do
   access_session :user_id
 
   def like(socket, dom_sender) do
-    like_or_unlike(socket, dom_sender, false, false)
-  end
-
-  def unlike(socket, dom_sender) do
-    like_or_unlike(socket, dom_sender, true, true)
+    user = get_session(socket, :user_id)
+    story_id = socket |> select(data: "storyId", from: this(dom_sender))
+    liked? = Like.liked?(user, story_id)
+    case liked? do
+      nil -> like_or_unlike(socket, dom_sender, false, false)
+      _ -> like_or_unlike(socket, dom_sender, true, true)
+    end
   end
 
   def dislike(socket, dom_sender) do
-    dislike_or_undislike(socket, dom_sender, false, false)
-  end
-
-  def undislike(socket, dom_sender) do
-    dislike_or_undislike(socket, dom_sender, true, true)
+    user = get_session(socket, :user_id)
+    story_id = socket |> select(data: "storyId", from: this(dom_sender))
+    liked? = Like.disliked?(user, story_id)
+    case liked? do
+      nil -> dislike_or_undislike(socket, dom_sender, false, false)
+      _ -> dislike_or_undislike(socket, dom_sender, true, true)
+    end
   end
 
   defp like_or_unlike(socket, dom_sender, html?, unlike) do
@@ -27,7 +31,7 @@ defmodule Fmylife.StoryCommander do
     get_like = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: false)
     get_dislike = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: true)
     html_unlike = "<button data-story-id='#{story_id}'class='btn btn-info btn-xs' drab-click='like'>Your life sucks</button>"
-    html_like = "<button data-story-id='#{story_id}'class='btn btn-info btn-xs active' drab-click='unlike'>Your life sucks</button>"
+    html_like = "<button data-story-id='#{story_id}'class='btn btn-info btn-xs active' drab-click='like'>Your life sucks</button>"
     html_undislike = "<button data-story-id='#{story_id}'class='btn btn-primary btn-xs' drab-click='dislike'>You deserved it</button>"
 
     html = if html?, do: html_unlike, else: html_like
@@ -61,7 +65,7 @@ defmodule Fmylife.StoryCommander do
     get_like = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: false)
     get_dislike = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: true)
     html_undislike = "<button data-story-id='#{story_id}'class='btn btn-primary btn-xs' drab-click='dislike'>You deserved it</button>"
-    html_dislike = "<button data-story-id='#{story_id}'class='btn btn-primary btn-xs active' drab-click='undislike'>You deserved it</button>"
+    html_dislike = "<button data-story-id='#{story_id}'class='btn btn-primary btn-xs active' drab-click='dislike'>You deserved it</button>"
     html_unlike = "<button data-story-id='#{story_id}'class='btn btn-info btn-xs' drab-click='like'>Your life sucks</button>"
     html = if html?, do: html_undislike, else: html_dislike
 

@@ -26,16 +26,4 @@ defmodule Fmylife.StoryView do
   defp rel_from_now({day, {_, _, _}}),
     do: "#{day} days ago"
     
-
-  def disliked?(conn, story_id) do
-    current_user = Coherence.current_user(conn)
-    case conn.assigns.current_user do
-      nil -> "btn btn-primary btn-xs"
-      _ ->
-        case Like.disliked?(current_user.id, story_id) do
-          nil -> "btn btn-primary btn-xs"
-          _ -> "btn btn-primary btn-xs active"
-        end
-    end
-  end
 end
