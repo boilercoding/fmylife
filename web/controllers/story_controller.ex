@@ -1,16 +1,21 @@
 defmodule Fmylife.StoryController do
   use Fmylife.Web, :controller
+  use Drab.Controller
 
   alias Fmylife.{User, Story, Comment, Category}
 
   def index(conn, params) do
+    current_user = Coherence.current_user(conn)
+    if conn.assigns.current_user do
+      conn = put_session(conn, :user_id, current_user.id)
+    end
     categories = Repo.all(Category)
     {stories, kerosene} =
     Story
     |> order_by(desc: :id)
     |> preload(:user)
     |> Repo.paginate(params)
-    
+
     render(conn, :index,
       stories: stories,
       categories: categories,
