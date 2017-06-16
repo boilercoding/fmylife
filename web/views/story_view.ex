@@ -1,6 +1,6 @@
 defmodule Fmylife.StoryView do
   use Fmylife.Web, :view
-  alias Fmylife.Like
+  alias Fmylife.{Like, StoryView}
   import Kerosene.HTML
 
   def time_ago_in_words(time) do
