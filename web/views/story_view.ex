@@ -25,5 +25,18 @@ defmodule Fmylife.StoryView do
     do: "just now"
   defp rel_from_now({day, {_, _, _}}),
     do: "#{day} days ago"
-    
+
+  def liked?(user, story) do
+   case Like.liked?(user, story) do
+     nil -> ""
+     _ -> "active"
+   end
+  end
+
+  def disliked?(user, story) do
+    case Like.disliked?(user, story) do
+      nil -> ""
+      _ -> "active"
+    end
+  end
 end
