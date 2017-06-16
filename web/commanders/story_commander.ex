@@ -30,11 +30,6 @@ defmodule Fmylife.StoryCommander do
     like= %Like{story_id: story_id, user_id: user}
     get_like = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: false)
     get_dislike = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: true)
-    html_unlike = "<button data-story-id='#{story_id}'class='btn btn-info btn-xs' drab-click='like'>Your life sucks</button>"
-    html_like = "<button data-story-id='#{story_id}'class='btn btn-info btn-xs active' drab-click='like'>Your life sucks</button>"
-    html_undislike = "<button data-story-id='#{story_id}'class='btn btn-primary btn-xs' drab-click='dislike'>You deserved it</button>"
-
-    html = if html?, do: html_unlike, else: html_like
 
     case get_dislike do
       nil ->
@@ -47,13 +42,15 @@ defmodule Fmylife.StoryCommander do
     total_likes = Like.total_likes(story_id)
     total_dislikes = Like.total_dislikes(story_id)
 
+    if html? do
+      socket |> delete(class: "active", from: this(dom_sender))
+    else
+      socket |> insert(class: "active", into: this(dom_sender))
+    end
     socket
-    |> delete(from: "#like-button-#{story_id}")
-    |> insert(html, append: "#like-button-#{story_id}")
     |> delete!(from: "#total-likes-#{story_id}")
     |> insert!("(#{total_likes})", append: "#total-likes-#{story_id}")
-    |> delete(from: "#dislike-button-#{story_id}")
-    |> insert(html_undislike, append: "#dislike-button-#{story_id}")
+    |> delete(class: "active", from: "#dislike-button-#{story_id}")
     |> delete!(from: "#total-dislikes-#{story_id}")
     |> insert!("(#{total_dislikes})", append: "#total-dislikes-#{story_id}")
   end
@@ -64,10 +61,6 @@ defmodule Fmylife.StoryCommander do
     dislike= %Like{story_id: story_id, user_id: user, dislike: true}
     get_like = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: false)
     get_dislike = Repo.get_by(Like, user_id: user, story_id: story_id, dislike: true)
-    html_undislike = "<button data-story-id='#{story_id}'class='btn btn-primary btn-xs' drab-click='dislike'>You deserved it</button>"
-    html_dislike = "<button data-story-id='#{story_id}'class='btn btn-primary btn-xs active' drab-click='dislike'>You deserved it</button>"
-    html_unlike = "<button data-story-id='#{story_id}'class='btn btn-info btn-xs' drab-click='like'>Your life sucks</button>"
-    html = if html?, do: html_undislike, else: html_dislike
 
     case get_like do
       nil ->
@@ -80,13 +73,15 @@ defmodule Fmylife.StoryCommander do
     total_likes = Like.total_likes(story_id)
     total_dislikes = Like.total_dislikes(story_id)
 
+    if html? do
+      socket |> delete(class: "active", from: this(dom_sender))
+    else
+      socket |> insert(class: "active", into: this(dom_sender))
+    end
     socket
-    |> delete(from: "#dislike-button-#{story_id}")
-    |> insert(html, append: "#dislike-button-#{story_id}")
     |> delete!(from: "#total-dislikes-#{story_id}")
     |> insert!("(#{total_dislikes})", append: "#total-dislikes-#{story_id}")
-    |> delete(from: "#like-button-#{story_id}")
-    |> insert(html_unlike, append: "#like-button-#{story_id}")
+    |> delete(class: "active", from: "#like-button-#{story_id}")
     |> delete!(from: "#total-likes-#{story_id}")
     |> insert!("(#{total_likes})", append: "#total-likes-#{story_id}")
   end
