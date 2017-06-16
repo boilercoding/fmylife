@@ -24,7 +24,7 @@ defmodule Fmylife.StoryController do
 
   def new(conn, _params) do
     changeset = Story.changeset(%Story{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, :new, changeset: changeset)
   end
 
   def create(conn, %{"story" => story_params}) do
@@ -37,13 +37,13 @@ defmodule Fmylife.StoryController do
         |> put_flash(:success, "Story created successfully.")
         |> redirect(to: story_path(conn, :show, story))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, :new, changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
     story = Repo.get!(Story, id)
-    render(conn, "show.html", story: story)
+    render(conn, :show, story: story)
   end
 
 end
