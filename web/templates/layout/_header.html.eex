@@ -13,8 +13,30 @@
 
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="<%= story_path(@conn, :top_stories) %>">Top Stories<span class="sr-only">(current)</span></a></li>
-          <li><a href="<%= story_path(@conn, :random) %>">Random Stories</a></li>
+          <%= case @conn.request_path do %>
+            <%= "/top-stories" -> %>
+              <li class="active">
+                <%= link to: story_path(@conn, :top_stories)do %>
+                  Top Stories<span class="sr-only">(current)</span>
+                <% end %>
+              </li>
+            <%= _ -> %>
+              <li>
+              <%= link "Top Stories", to: story_path(@conn, :top_stories) %>
+            </li>
+          <% end %>
+          <%= case @conn.request_path do %>
+            <%= "/random" -> %>
+              <li class="active">
+                <%= link to: story_path(@conn, :random)do %>
+                  Random Stories<span class="sr-only">(current)</span>
+                <% end %>
+              </li>
+            <%= _ -> %>
+              <li>
+              <%= link "Random Stories", to: story_path(@conn, :random) %>
+            </li>
+          <% end %>
         </ul>
         <form class="navbar-form navbar-left" role="search">
           <div class="input-group">
