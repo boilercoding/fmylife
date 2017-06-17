@@ -32,4 +32,13 @@ defmodule Fmylife.Story do
       preload: [:user]
     )
   end
+
+  def random do
+    Fmylife.Repo.all(
+      from s in Fmylife.Story,
+      order_by: [desc: fragment("Random()")],
+      limit: 10,
+      preload: [:user]
+    )
+  end
 end

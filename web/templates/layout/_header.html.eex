@@ -14,7 +14,7 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
           <li class="active"><a href="<%= story_path(@conn, :top_stories) %>">Top Stories<span class="sr-only">(current)</span></a></li>
-          <li><a href="">Random Stories</a></li>
+          <li><a href="<%= story_path(@conn, :random) %>">Random Stories</a></li>
         </ul>
         <form class="navbar-form navbar-left" role="search">
           <div class="input-group">

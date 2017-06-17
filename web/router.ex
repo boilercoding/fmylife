@@ -45,6 +45,7 @@ defmodule Fmylife.Router do
 
     get "/", StoryController, :index
     get "/top-stories", StoryController, :top_stories
+    get "/random", StoryController, :random
     resources "/stories", StoryController, only: [:show]
   end
 

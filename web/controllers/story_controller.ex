@@ -52,4 +52,10 @@ defmodule Fmylife.StoryController do
     render(conn, :top_stories, stories: stories, categories: categories)
   end
 
+  def random(conn, _params) do
+    stories = Story.random()
+    categories = Repo.all(Category)
+    render(conn, :random, stories: stories, categories: categories)
+  end
+
 end
