@@ -46,4 +46,10 @@ defmodule Fmylife.StoryController do
     render(conn, :show, story: story)
   end
 
+  def top_stories(conn, _params) do
+    stories = Story.top()
+    categories = Repo.all(Category)
+    render(conn, :top_stories, stories: stories, categories: categories)
+  end
+
 end

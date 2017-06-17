@@ -19,4 +19,17 @@ defmodule Fmylife.Story do
     |> cast(params, [:body])
     |> validate_required([:body])
   end
+
+  def top do
+    Fmylife.Repo.all(
+      from s in Fmylife.Story,
+      left_join: l in assoc(s, :likes),
+      where: l.dislike == false,
+      order_by: [desc: count(l.id), desc: s.inserted_at],
+      group_by: s.id,
+      select: s,
+      limit: 10,
+      preload: [:user]
+    )
+  end
 end

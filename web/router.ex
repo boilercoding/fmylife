@@ -44,6 +44,7 @@ defmodule Fmylife.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", StoryController, :index
+    get "/top-stories", StoryController, :top_stories
     resources "/stories", StoryController, only: [:show]
   end
 
