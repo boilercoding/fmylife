@@ -9,7 +9,7 @@
       <div class="panel panel-default">
         <div class="panel-heading text-center">Categories</div>
         <ul class="list-group">
-          <%= render_many @categories, StoryView, "_categories.html", as: :category %>
+          <%= render_many @categories, StoryView, "_categories.html", as: :category, conn: @conn %>
         </ul>
       </div><!-- /.panel panel-default -->
     </div><!-- /.col-md-4 col-sm-12 -->

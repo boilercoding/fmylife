@@ -4,11 +4,9 @@ defmodule Fmylife.StoryController do
 
   alias Fmylife.{User, Story, Comment, Category}
 
+  plug :assign_user_id_to_session when not action in [:new, :show, :update]
+
   def index(conn, params) do
-    current_user = Coherence.current_user(conn)
-    if conn.assigns.current_user do
-      conn = put_session(conn, :user_id, current_user.id)
-    end
     categories = Repo.all(Category)
     {stories, kerosene} =
     Story
@@ -23,13 +21,15 @@ defmodule Fmylife.StoryController do
   end
 
   def new(conn, _params) do
+    categories = Repo.all(Category)
     changeset = Story.changeset(%Story{})
-    render(conn, :new, changeset: changeset)
+    render(conn, :new, changeset: changeset, categories: categories)
   end
 
   def create(conn, %{"story" => story_params}) do
+    category_id = String.to_integer(story_params["category_id"])
     current_user = Coherence.current_user(conn)
-    changeset = Story.changeset(%Story{user_id: current_user.id}, story_params)
+    changeset = Story.changeset(%Story{user_id: current_user.id, category_id: category_id}, story_params)
 
     case Repo.insert(changeset) do
       {:ok, story} ->
@@ -56,6 +56,22 @@ defmodule Fmylife.StoryController do
     stories = Story.random()
     categories = Repo.all(Category)
     render(conn, :random, stories: stories, categories: categories)
+  end
+
+  def categories(conn, %{"id" => id}) do
+    category_id = String.to_integer(id)
+    categories = Repo.all(Category)
+    stories = Story.stories_of_category(category_id)
+
+    render(conn, :categories, stories: stories, categories: categories)
+  end
+
+  defp assign_user_id_to_session(conn, _) do
+    current_user = Coherence.current_user(conn)
+    if conn.assigns.current_user do
+      conn = put_session(conn, :user_id, current_user.id)
+    end
+    conn
   end
 
 end

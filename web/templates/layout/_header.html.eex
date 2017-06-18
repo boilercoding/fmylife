@@ -13,26 +13,24 @@
 
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
-          <%= case @conn.request_path do %>
-            <%= "/top-stories" -> %>
+          <%= if @conn.request_path == story_path(@conn, :top_stories) do %>
               <li class="active">
                 <%= link to: story_path(@conn, :top_stories)do %>
                   Top Stories<span class="sr-only">(current)</span>
                 <% end %>
               </li>
-            <%= _ -> %>
+          <%= else %>
               <li>
               <%= link "Top Stories", to: story_path(@conn, :top_stories) %>
             </li>
           <% end %>
-          <%= case @conn.request_path do %>
-            <%= "/random" -> %>
+          <%= if @conn.request_path == story_path(@conn, :random)do %>
               <li class="active">
                 <%= link to: story_path(@conn, :random)do %>
                   Random Stories<span class="sr-only">(current)</span>
                 <% end %>
               </li>
-            <%= _ -> %>
+          <%= else %>
               <li>
               <%= link "Random Stories", to: story_path(@conn, :random) %>
             </li>
@@ -47,7 +45,7 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <%= if Coherence.current_user(@conn) do %>
+          <%= if @current_user do %>
             <li><%= link "Submit your FML", to: story_path(@conn, :new) %></li>
           <% end %>
           <%= Fmylife.Coherence.ViewHelpers.coherence_links(@conn, :layout) %>

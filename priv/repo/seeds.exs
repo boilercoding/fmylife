@@ -41,6 +41,9 @@ end)
 
 Fmylife.Repo.delete_all Fmylife.Story
 (1..60) |> Enum.each(fn n ->
-  Fmylife.Story.changeset(%Fmylife.Story{user_id: :rand.uniform(10)}, %{body: "The quick brown fox jumps over the lazy dog. #{n}"})
+  Fmylife.Story.changeset(%Fmylife.Story{
+    user_id: :rand.uniform(10),
+    category_id: :rand.uniform(6)},
+    %{body: "The quick brown fox jumps over the lazy dog. #{n}"})
   |> Fmylife.Repo.insert!
 end)

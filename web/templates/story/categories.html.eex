@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-8">
       <%= render_many @stories, StoryView, "_stories.html", conn: @conn, current_user: @current_user %>
+
     </div><!-- /.col-md-8 -->
     <div class="col-md-4 col-sm-12">
       <div class="panel panel-default">

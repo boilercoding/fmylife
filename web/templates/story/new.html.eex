@@ -4,6 +4,7 @@
       <h2>Submit your FML</h2>
       <p>Have you just experienced an FML moment? Feel like sharing it with the other FML users? Your instinct was right, because it’s good to laugh life off. Follow the instructions below, and if your story gets through the moderation process, it'll published in the next 24 hours.</p>
       <%= render "_form.html", changeset: @changeset,
+                        categories: @categories,
                         action: story_path(@conn, :create) %>
     </div>
   </div>

@@ -1,5 +1,6 @@
 defmodule Fmylife.Story do
   use Fmylife.Web, :model
+  alias Fmylife.{Repo, Story}
 
   schema "stories" do
     field :body, :string
@@ -21,8 +22,8 @@ defmodule Fmylife.Story do
   end
 
   def top do
-    Fmylife.Repo.all(
-      from s in Fmylife.Story,
+    Repo.all(
+      from s in Story,
       left_join: l in assoc(s, :likes),
       where: l.dislike == false,
       order_by: [desc: count(l.id), desc: s.inserted_at],
@@ -34,10 +35,19 @@ defmodule Fmylife.Story do
   end
 
   def random do
-    Fmylife.Repo.all(
-      from s in Fmylife.Story,
+    Repo.all(
+      from s in Story,
       order_by: [desc: fragment("Random()")],
       limit: 10,
+      preload: [:user]
+    )
+  end
+
+  def stories_of_category(category_id) do
+    Repo.all(
+      from s in Story,
+      order_by: [desc: s.id],
+      where: s.category_id == ^category_id,
       preload: [:user]
     )
   end

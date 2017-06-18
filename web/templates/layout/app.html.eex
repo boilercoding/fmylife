@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <%= render "_header.html", conn: @conn %>
+    <%= render "_header.html", conn: @conn, current_user: @current_user %>
     <div class="container">
 
       <p class="alert alert-success" role="alert"><%= get_flash(@conn, :success) %></p>
