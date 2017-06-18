@@ -58,12 +58,12 @@ defmodule Fmylife.StoryController do
     render(conn, :random, stories: stories, categories: categories)
   end
 
-  def categories(conn, %{"id" => id}) do
-    category_id = String.to_integer(id)
+  def categories(conn, params) do
+    category_id = String.to_integer(params["id"])
     categories = Repo.all(Category)
-    stories = Story.stories_of_category(category_id)
+    {stories, kerosene} = Story.stories_of_category(category_id, params)
 
-    render(conn, :categories, stories: stories, categories: categories)
+    render(conn, :categories, stories: stories, categories: categories, kerosene: kerosene)
   end
 
   defp assign_user_id_to_session(conn, _) do

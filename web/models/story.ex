@@ -43,12 +43,12 @@ defmodule Fmylife.Story do
     )
   end
 
-  def stories_of_category(category_id) do
-    Repo.all(
-      from s in Story,
-      order_by: [desc: s.id],
-      where: s.category_id == ^category_id,
-      preload: [:user]
-    )
+  def stories_of_category(category_id, params) do
+    Story
+    |> order_by(desc: :id)
+    |> where(category_id: ^category_id)
+    |> preload(:user)
+    |> Repo.paginate(params)
   end
+
 end
