@@ -1,0 +1,12 @@
+<div class="form-group">
+  <label class="control-label" for="comment_Add_a_comment">
+    Add a comment
+  </label>
+  <textarea class="form-control" id="comment_body" rows="6"></textarea>
+</div>
+
+<div class="form-group text-center">
+  <button drab-click="publish_comment" data-story-id="<%= @story %>" id="comment-publish" class="btn btn-primary" type="submit">
+    Publish
+  </button>
+</div>

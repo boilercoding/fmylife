@@ -47,3 +47,12 @@ Fmylife.Repo.delete_all Fmylife.Story
     %{body: "The quick brown fox jumps over the lazy dog. #{n}"})
   |> Fmylife.Repo.insert!
 end)
+
+Fmylife.Repo.delete_all Fmylife.Comment
+(1..900) |> Enum.each(fn n ->
+  Fmylife.Comment.changeset(%Fmylife.Comment{
+    user_id: :rand.uniform(10),
+    story_id: :rand.uniform(60)},
+    %{body: "Locavore cardigan street art vice iPhone woke. #{n}"})
+  |> Fmylife.Repo.insert!
+end)

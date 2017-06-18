@@ -1,8 +1,26 @@
 defmodule Fmylife.StoryCommander do
   use Drab.Commander
-  alias Fmylife.{Like, Repo}
+  alias Fmylife.{Like, Repo, Comment, User}
 
   access_session :user_id
+
+  def publish_comment(socket, sender) do
+    user = get_session(socket, :user_id)
+    story_id = socket |> select(data: "storyId", from: this(sender))
+    comment = socket |> select(:val, from: "#comment_body")
+    changeset = Comment.changeset(%Comment{user_id: user, story_id: story_id}, %{body: comment})
+
+    case Repo.insert(changeset) do
+      {:ok, comment} ->
+        comment = Repo.preload(comment, [:user])
+        html = render_to_string("_comment.html", [comment: comment])
+        socket
+        |> insert!(html, prepend: "#comments")
+        |> update(:val, set: "", on: "#comment_body")
+      {:error, changeset} ->
+        socket |> exec_js("alert('You need to fill the form')")
+    end
+  end
 
   def like(socket, dom_sender) do
     user = get_session(socket, :user_id)

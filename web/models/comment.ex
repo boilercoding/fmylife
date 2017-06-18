@@ -17,4 +17,12 @@ defmodule Fmylife.Comment do
     |> cast(params, [:body])
     |> validate_required([:body])
   end
+
+  def count(story_id) do
+    hd Fmylife.Repo.all(
+      from c in Fmylife.Comment,
+      select: count(c.id),
+      where: [story_id: ^story_id]
+    )
+  end
 end

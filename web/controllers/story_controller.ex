@@ -42,8 +42,12 @@ defmodule Fmylife.StoryController do
   end
 
   def show(conn, %{"id" => id}) do
-    story = Repo.get!(Story, id)
-    render(conn, :show, story: story)
+    changeset = Comment.changeset(%Comment{})
+    story = Repo.preload(
+      Repo.get!(Story, id),
+      [:user, {:comments, :user}]
+    )
+    render(conn, :show, story: story, changeset: changeset)
   end
 
   def top_stories(conn, _params) do
