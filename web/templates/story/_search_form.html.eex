@@ -1,0 +1,8 @@
+<%= form_tag(story_path(@conn, :search), method: "get", enforce_utf8: false, class: "navbar-form navbar-left", role: "search") do %>
+  <div class="input-group">
+    <input type="text" name="search" class="form-control" placeholder="Search for...">
+    <span class="input-group-btn">
+      <%= submit "Search", class: "btn btn-default" %>
+    </span>
+  </div>
+<% end %>

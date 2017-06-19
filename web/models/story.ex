@@ -51,4 +51,11 @@ defmodule Fmylife.Story do
     |> Repo.paginate(params)
   end
 
+  def search(search_params, params) do
+    from(s in Story,
+    where: ilike(s.body, ^"%#{search_params}%"),
+    preload: [:user])
+    |> Repo.paginate(params)
+  end
+
 end

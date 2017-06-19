@@ -70,6 +70,13 @@ defmodule Fmylife.StoryController do
     render(conn, :categories, stories: stories, categories: categories, kerosene: kerosene)
   end
 
+  def search(conn, params) do
+    categories = Repo.all(Category)
+    top_stories = Story.top()
+    {stories, kerosene} = Story.search(params["search"], params)
+    render(conn, :search, stories: stories, top_stories: top_stories, categories: categories, kerosene: kerosene)
+  end
+
   defp assign_user_id_to_session(conn, _) do
     current_user = Coherence.current_user(conn)
     if conn.assigns.current_user do
