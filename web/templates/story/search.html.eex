@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-8">
       <%= if @stories == [] do %>
-        <%= render_many @top_stories, StoryView, "_stories.html", as: :story, conn: @conn, current_user: @current_user %>
+        <%= render_many @top_stories, StoryView, "_story.html", as: :story, conn: @conn, current_user: @current_user %>
       <% else %>
-        <%= render_many @stories, StoryView, "_stories.html", conn: @conn, current_user: @current_user %>
+        <%= render_many @stories, StoryView, "_story.html", conn: @conn, current_user: @current_user %>
       <% end %>
 
       <%= paginate @conn, @kerosene, class: "pull-right" %>
@@ -13,7 +13,7 @@
       <div class="panel panel-default">
         <div class="panel-heading text-center">Categories</div>
         <ul class="list-group">
-          <%= render_many @categories, StoryView, "_categories.html", as: :category, conn: @conn %>
+          <%= render_many @categories, StoryView, "_category.html", as: :category, conn: @conn %>
         </ul>
       </div><!-- /.panel panel-default -->
     </div><!-- /.col-md-4 col-sm-12 -->

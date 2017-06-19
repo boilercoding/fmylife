@@ -11,7 +11,7 @@ defmodule Fmylife.StoryController do
     {stories, kerosene} =
     Story
     |> order_by(desc: :id)
-    |> preload(:user)
+    |> preload([:user, :comments])
     |> Repo.paginate(params)
 
     render(conn, :index,

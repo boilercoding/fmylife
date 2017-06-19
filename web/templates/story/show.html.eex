@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <%= render_one @story, StoryView, "_stories.html", conn: @conn, current_user: @current_user %>
+      <%= render_one @story, StoryView, "_story.html", conn: @conn, current_user: @current_user %>
 
       <div class="form-area">
         <div class="well">

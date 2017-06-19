@@ -30,7 +30,7 @@ defmodule Fmylife.Story do
       group_by: s.id,
       select: s,
       limit: 10,
-      preload: [:user]
+      preload: [:user, :comments]
     )
   end
 
@@ -39,7 +39,7 @@ defmodule Fmylife.Story do
       from s in Story,
       order_by: [desc: fragment("Random()")],
       limit: 10,
-      preload: [:user]
+      preload: [:user, :comments]
     )
   end
 
@@ -47,14 +47,14 @@ defmodule Fmylife.Story do
     Story
     |> order_by(desc: :id)
     |> where(category_id: ^category_id)
-    |> preload(:user)
+    |> preload([:user, :comments])
     |> Repo.paginate(params)
   end
 
   def search(search_params, params) do
     from(s in Story,
     where: ilike(s.body, ^"%#{search_params}%"),
-    preload: [:user])
+    preload: [:user, :comments])
     |> Repo.paginate(params)
   end
 

@@ -20,6 +20,6 @@
   <span id="total-dislikes-<%= @story.id %>" class="text-warning">
     (<%= Fmylife.Like.total_dislikes(@story.id) %>)
   </span>
-  <%= link "Comments", to: story_path(@conn, :show, @story), class: "btn btn-link btn-xs" %></a><small><em> (<%= Fmylife.Comment.count(@story.id) %>)</em></small>
+  <%= link "Comments", to: story_path(@conn, :show, @story), class: "btn btn-link btn-xs" %><small><em>(<%= length(@story.comments) %>)</em></small>
   <div class="text-muted pull-right"><small>Created by: <%= @story.user.name %>&nbsp;<%= time_ago_in_words(@story.inserted_at) %></small></div>
 </div><!-- /.well -->

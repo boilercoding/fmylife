@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <%= render_many @stories, StoryView, "_stories.html", conn: @conn, current_user: @current_user %>
+      <%= render_many @stories, StoryView, "_story.html", conn: @conn, current_user: @current_user %>
 
       <%= paginate @conn, @kerosene, class: "pull-right" %>
     </div><!-- /.col-md-8 -->
@@ -9,7 +9,7 @@
       <div class="panel panel-default">
         <div class="panel-heading text-center">Categories</div>
         <ul class="list-group">
-          <%= render_many @categories, StoryView, "_categories.html", as: :category, conn: @conn %>
+          <%= render_many @categories, StoryView, "_category.html", as: :category, conn: @conn %>
         </ul>
       </div><!-- /.panel panel-default -->
     </div><!-- /.col-md-4 col-sm-12 -->
