@@ -7,17 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Admin1!</title>
+    <title>FML : Your everyday life stories</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
+    <%= render Fmylife.LayoutView, "_header.html", conn: @conn, current_user: @current_user %>
     <div class="container">
-      <header class="header">
-        <nav role="navigation">
-        </nav>
-        <span class="logo"></span>
-      </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>

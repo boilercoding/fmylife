@@ -4,18 +4,18 @@
   <br>
   <%= case @conn.assigns.current_user do %>
     <%= nil -> %>
-        <%= link "Your life sucks", to: session_path(@conn, :new), class: "btn btn-info btn-xs" %>
+        <%= link "Your life sucks", to: session_path(@conn, :new), class: "btn btn-primary btn-xs" %>
     <%= _ -> %>
-          <button id="like-button-<%= @story.id %>" data-story-id="<%= @story.id %>"class="btn btn-info btn-xs <%= liked?(@current_user.id, @story.id) %>" drab-click="like">Your life sucks</button>
+          <button id="like-button-<%= @story.id %>" data-story-id="<%= @story.id %>"class="btn btn-primary btn-xs <%= liked?(@current_user.id, @story.id) %>" drab-click="like">Your life sucks</button>
   <% end %>
   <span id="total-likes-<%= @story.id %>" class="text-warning">
     (<%= Fmylife.Like.total_likes(@story.id) %>)
   </span>
   <%= case @conn.assigns.current_user do %>
     <%= nil -> %>
-        <%= link "You deserved it", to: session_path(@conn, :new), class: "btn btn-primary btn-xs" %>
+        <%= link "You deserved it", to: session_path(@conn, :new), class: "btn btn-info btn-xs" %>
     <%= _ -> %>
-          <button id="dislike-button-<%= @story.id %>" data-story-id="<%= @story.id %>"class="btn btn-primary btn-xs <%= disliked?(@current_user.id, @story.id) %>" drab-click="dislike">You deserved it</button>
+          <button id="dislike-button-<%= @story.id %>" data-story-id="<%= @story.id %>"class="btn btn-info btn-xs <%= disliked?(@current_user.id, @story.id) %>" drab-click="dislike">You deserved it</button>
   <% end %>
   <span id="total-dislikes-<%= @story.id %>" class="text-warning">
     (<%= Fmylife.Like.total_dislikes(@story.id) %>)
