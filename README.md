@@ -1,6 +1,6 @@
 # Fmylife
 
-[Fmylife](https://elixir-fmylife-clone.herokuapp.com/"Fmylife") clone made with elixir/phoenix and [Drab](https://github.com/grych/drab"Drab") to handle the browser user interface.
+[Fmylife](https://elixir-fmylife-clone.herokuapp.com/ "Fmylife") clone made with elixir/phoenix and [Drab](https://github.com/grych/drab "Drab") to handle the browser user interface.
 
 ![Fmylife Homepage](/readme-img/homepage.png "Fmylife Homepage")
 
@@ -43,8 +43,8 @@ Users can see stories by categories, popularity, random or search for a specific
 
 ![Fmylife Show Page](/readme-img/show.png "Fmylife Show Page")
 
-Logged in users can create stories, create comments on stories, and like/unlike stories. Comments and like/unlike use [Drab](https://github.com/grych/drab"Drab") for realtime updates.
+Logged in users can create stories, create comments on stories, and like/unlike stories. Comments and like/unlike use [Drab](https://github.com/grych/drab "Drab") for realtime updates.
 
 ---
 
-If you've made it through reading all this, congratulation...now you really should head over to [**_Fmylife_**](https://elixir-fmylife-clone.herokuapp.com/"Odinbook").
+If you've made it through reading all this, congratulation...now you really should head over to [**_Fmylife_**](https://elixir-fmylife-clone.herokuapp.com/ "Fmylife").
