@@ -42,7 +42,7 @@ defmodule Fmylife.StoryView do
 
   def gravatar_for(email, size \\ 80) do
     gravatar_id = hash(email)
-    "https:/secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}&default=mm"
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}&default=mm"
   end
   defp md5(str) do
     :crypto.hash(:md5 , str) |> Base.encode16(case: :lower)
