@@ -49,7 +49,7 @@ defmodule Coherence.Redirects do
   # def session_delete(conn, _), do: redirect(conn, session_path(conn, :new))
 
   # disable the user_return_to feature on login
-  def session_create(conn, _), do: redirect(conn, to: "/")
+  # def session_create(conn, _), do: redirect(conn, to: "/")
 
   # redirect the user to the login page after registering
   def registration_create(conn, _), do: redirect(conn, to: session_path(conn, :new))

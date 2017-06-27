@@ -5,7 +5,15 @@
 
       <div class="form-area">
         <div class="well">
-          <%= render "_comment_form.html", story: @story.id %>
+          <%= if @conn.assigns.current_user do %>
+              <%= render "_comment_form.html", story: @story.id %>
+          <% else %>
+            <div class="text-center">
+              <h5>You must be logged in to be able to post comments!</h5>
+              <%= link "Create my account", to: registration_path(@conn, :new), class: "btn btn-info" %>
+              <%= link "Sign in", to: session_path(@conn, :new), class: "btn btn-info" %>
+            </div>
+          <% end %>
         </div>
       </div>
       <div id="comments">
