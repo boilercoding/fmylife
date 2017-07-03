@@ -88,7 +88,7 @@ defmodule Fmylife.Coherence.ViewHelpers do
 
   def coherence_links(conn, :layout, opts) do
     list_tag      = Keyword.get opts, :list_tag, :li
-    signout_class = Keyword.get opts, :signout_class, "btn btn-primary"
+    signout_class = Keyword.get opts, :signout_class, @signout_link
     signin        = Keyword.get opts, :signin, @signin_link
     signout       = Keyword.get opts, :signout, @signout_link
     register      = Keyword.get opts, :register, @register_link
@@ -96,8 +96,17 @@ defmodule Fmylife.Coherence.ViewHelpers do
     if Coherence.logged_in?(conn) do
       current_user = Coherence.current_user(conn)
       [
-        content_tag(list_tag, profile_link(current_user, conn)),
-        content_tag(list_tag, signout_link(conn, signout, signout_class))
+        content_tag(list_tag, class: "dropdown") do
+          [
+            profile_link(current_user, conn),
+            content_tag(:ul, class: "dropdown-menu") do
+              [
+                content_tag(:li, link("Profile", to: coherence_path(@helpers, :registration_path, conn, :show), class: "text-center")),
+                content_tag(:li, signout_link(conn, signout, signout_class))
+              ]
+            end
+          ]
+        end
       ]
     else
       signin_link = content_tag(list_tag, link(signin, to: coherence_path(@helpers, :session_path, conn, :new)))
@@ -149,7 +158,7 @@ defmodule Fmylife.Coherence.ViewHelpers do
   end
 
   def signout_link(conn, text \\ @signout_link, signout_class \\ "") do
-    link(text, to: coherence_path(@helpers, :session_path, conn, :delete), method: :delete, class: signout_class)
+    button(text, to: coherence_path(@helpers, :session_path, conn, :delete), method: :delete, class: signout_class)
   end
 
   def confirmation_link(_conn, _user_schema, false), do: []
@@ -171,7 +180,13 @@ defmodule Fmylife.Coherence.ViewHelpers do
 
   defp profile_link(current_user, conn) do
     if Config.user_schema.registerable? do
-      link current_user.name, to: coherence_path(@helpers, :registration_path, conn, :show)
+      link(to: "#", class: "dropdown-toggle", data_toggle: "dropdown", role: "button", aria_haspopup: "true", aria_expanded: "false") do
+        [
+          img_tag(Fmylife.StoryView.gravatar_for(current_user.email, 22), class: "img-circle"),
+          Fmylife.StoryView.first_name(current_user),
+          content_tag(:span, "", class: "caret")
+        ]
+      end
     else
       current_user.name
     end

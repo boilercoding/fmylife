@@ -1,15 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
       <%= render_many @stories, StoryView, "_story.html", conn: @conn, current_user: @current_user %>
     </div><!-- /.col-md-8 -->
-    <div class="col-md-4 col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-heading text-center">Categories</div>
-        <ul class="list-group">
-          <%= render_many @categories, StoryView, "_category.html", as: :category, conn: @conn %>
-        </ul>
-      </div><!-- /.panel panel-default -->
-    </div><!-- /.col-md-4 col-sm-12 -->
+    <div class="col-md-3 col-sm-12">
+      <div class="list-group">
+        <%= render_many @categories, StoryView, "_category.html", as: :category, conn: @conn %>
+      </div>
+    </div><!-- /.col-md-3 col-sm-12 -->
   </div><!-- /.row -->
 </div><!-- /.container -->

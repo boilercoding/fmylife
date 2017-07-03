@@ -1,3 +1,1 @@
-<li class="list-group-item">
-  <%= link @category.name, to: story_path(@conn, :categories, @category) %>
-</li>
+<%= link @category.name, to: story_path(@conn, :categories, @category), class: active_category?(@conn, @category.id) %>

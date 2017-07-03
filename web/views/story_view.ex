@@ -2,6 +2,13 @@ defmodule Fmylife.StoryView do
   use Fmylife.Web, :view
   alias Fmylife.{Like, StoryView}
   import Kerosene.HTML
+  alias Fmylife.User
+
+  def first_name(%User{name: name}) do
+    name
+    |> String.split(" ")
+    |> Enum.at(0)
+  end
 
   def time_ago_in_words(time) do
     ts = NaiveDateTime.to_erl(time) |> :calendar.datetime_to_gregorian_seconds
@@ -37,6 +44,14 @@ defmodule Fmylife.StoryView do
     case Like.disliked?(user, story) do
       nil -> ""
       _ -> "active"
+    end
+  end
+
+  def active_category?(conn, category_id) do
+    if conn.params["id"] == Integer.to_string(category_id) do
+      "list-group-item active"
+    else
+      "list-group-item"
     end
   end
 

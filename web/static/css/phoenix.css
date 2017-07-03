@@ -81,3 +81,24 @@ form.link, form.button {
     border-bottom: 0;
   }
 }
+
+/* Logout link form fix */
+.dropdown-menu>li>form>button {
+ display: block;
+ padding: 3px 20px;
+ clear: both;
+ font-weight: 400;
+ line-height: 1.42857143;
+ color: #333;
+ white-space: nowrap;
+ background: inherit;
+ border:none;
+ font: inherit;
+ width: 100%;
+}
+
+.dropdown-menu>li>form>button:focus, .dropdown-menu>li>form>button:hover{
+ color:#ffffff;
+ text-decoration:none;
+ background-color:#2fa4e7;
+}
